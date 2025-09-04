@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Poppins;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+body {
+  margin: 0px !important;
+  background: #fff !important;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  outline: none;
+  border: 0px solid;
+  background-color: transparent;
+}
+
+p {
+  margin: 0px;
+}
+
+/*SCROLLBAR*/
+
+/* Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  height: 8px; /* horizontal */
+  width: 8px;  /* vertical */
+}
+
+::-webkit-scrollbar-track {
+  background: #ECF2F3;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9E9E9E;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+/*END::SCROLLBAR*/
+
+/*Fondos*/
+.bg-negro {
+  background: #1E1E1E;
+}
+
+.bg-gris-claro {
+  background: #F4F4F4;
+}
+
+.bg-gris-oscuro {
+  background: #999;
+}
+
+.bg-gris-oscuro-3 {
+  background: #707070;
+}
+
+.bg-gris-oscuro-4 {
+  background:#39475C;
+}
+
+.bg-morado {
+  background:#5B66AD;
+}
+
+.bg-morado-oscuro {
+  background: #202975;
+}
+
+.bg-azul-principal {
+  background:#0098D6;
+}
+
+.bg-azul-principal-oscuro {
+  background:#005BB4;
+}
+
+.bg-azul-claro {
+  background:#66C7ED;
+}
+
+.bg-blanco {
+  background: #FFF;
+}
+
+.bg-verde-agua {
+  background: #4BBAC5;
+}
+
+.bg-verde-agua-oscuro {
+  background: #108898;
+}
+
+.bg-verde-ganancia {
+  background: #1E8E00;
+}
+
+.bg-rojo-error {
+  background: #FB0000;
+}
+
+.bg-rojo-perdida {
+  background: #C54050;
+}
+
+.bg-rojo-oscuro {
+  background: #981019;
+}
+
+.bg-azul-navy{
+  background: #161930;
+}
+/*END::Fondos*/
+
+/*Colores*/
+.negro{
+  color: #1E1E1E;
+}
+
+.gris-claro {
+  color: #F4F4F4;
+}
+
+.gris-oscuro {
+  color: #999;
+}
+
+.gris-oscuro-3 {
+  color: #707070;
+}
+
+.gris-oscuro-4 {
+  color:#39475C;
+}
+
+.blanco {
+  color: #FFF;
+}
+
+.morado {
+  color:#5B66AD;
+}
+
+.morado-oscuro {
+  color: #202975;
+}
+
+.azul-principal {
+  color:#0098D6;
+}
+
+.azul-principal-oscuro {
+  color:#005BB4;
+}
+
+.azul-claro {
+  color:#66C7ED;
+}
+
+.verde-agua{
+  color: #4BBAC5;
+}
+
+.verde-agua-oscuro {
+  color: #108898;
+}
+
+.verde-ganancia {
+  color: #1E8E00;
+}
+
+.rojo-error{
+  color: #FB0000;
+}
+
+.rojo-perdida {
+  color: #C54050;
+}
+
+.rojo-oscuro {
+  color: #981019;
+}
+
+.azul-navy {
+  color: #161930;
+}
+
+/*END::Colores*/ 
+
+
+/*Textos*/ 
+.poppins-36 {
+  font-family: Poppins;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 80%;
+}
+
+.poppins-32 {
+  font-family: Poppins;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.poppins-26{
+  font-family: Poppins;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.poppins-17{
+  font-family: Poppins;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.poppins-16 {
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.poppins-15 {
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.poppins-14 {
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.poppins-13 {
+  font-family: Poppins;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13px;
+}
+
+.poppins-10 {
+  font-family: Poppins;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+/*END::Textos*/
+
+/*ANTD*/
+.ant-drawer-header {
+    display: none !important;
+}
+/*END::ANTD*/

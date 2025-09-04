@@ -1,0 +1,33 @@
+.ant-drawer-content-wrapper:has(.styled-drawer) {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    margin-right: 20px !important;
+}
+
+.ant-drawer-content-wrapper:has(.contact-drawer) {
+    height: 410px;
+}
+
+.ant-drawer-content-wrapper:has(.bank-drawer) {
+    height: 380px;
+}
+
+.ant-drawer-content-wrapper:has(.letters-drawer) {
+    height: 280px;
+}
+
+.ant-drawer-content-wrapper:has(.user-new) {
+    height: 550px;
+}
+
+.ant-drawer-content-wrapper:has(.historial-drawer) {
+    height: 620px;
+}
+
+.ant-drawer-content-wrapper:has(.softwareCommission-drawer) {
+    height: 210px;
+}
+
+.ant-drawer-content-wrapper:has(.marketingCommission-drawer) {
+    height: 320px;
+}

@@ -1,0 +1,62 @@
+.sidebar {
+    min-width: 200px;
+    max-width: 307px;
+    width: 16vw;
+    height: 100%;
+    transition: all 0.5s linear;
+}
+
+.sidebar-hidden {
+    min-width: 50px;
+    max-width: 120px;
+    width: 12vw;
+    height: 100%;
+    transition: all 0.5s ease-out;
+}
+
+.sidebar-hidden a > p, .sidebar-hidden button > p {display: none;}
+.sidebar-hidden > div > img {width: 90px; }
+
+.sidebar-hidden .logo-nocolapse {display: none;}
+.sidebar .logo-nocolapse {display: block;}
+.sidebar .logo-colapse {display: none;}
+.sidebar-hidden .logo-colapse {display: block;}
+
+.sidebar-hidden > div > .actions {
+    display: none;
+}
+
+.selected {
+    background: var(--Azul-Navy, #161930);
+    border-radius: 0px 5px 5px 0px;
+    margin-left: -40px;
+    padding-left: 40px;
+    width: calc(100% + 40px);
+}
+
+.selected-logo {
+    background-image: url(/svg/SidebarIcons/sidebar-logo-border.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: -5px;
+}
+
+.colapse {
+    width: 34px;
+    position: absolute;
+    right: -15px;
+    top: 12vh;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.sidebar-hidden .colapse {
+    top: 8vh;
+    transform: rotate(180deg);
+    transition: all 0.5s linear;
+}
+
+.sidebar-link > .selected-img {display: none;}
+.sidebar-link > .noselected-img {display: block;}
+.sidebar-link:not(.selected):hover > .selected-img {display: block;}
+.sidebar-link:not(.selected):hover > .noselected-img {display: none;}

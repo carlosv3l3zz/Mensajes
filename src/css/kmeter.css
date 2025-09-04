@@ -1,0 +1,65 @@
+@keyframes incres {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 32.7%;
+  }
+}
+
+@keyframes decres {
+  0% {
+    width: 32.7%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}
+
+.custom-confirm {
+  animation: incres 0.5s ease-in-out forwards;
+}
+
+.custom-confirm.shrink {
+  animation: decres 0.5s ease-in-out forwards;
+}
+
+.p-reset.valid {
+  color: #48A330;
+  /* verde para condiciones válidas */
+}
+
+.p-reset.invalid {
+  color: #FC2020;
+  /* rojo para condiciones inválidas */
+}
+
+.verde1 {
+  color: #48A330;
+}
+
+.bg-verde1 {
+  background-color: #48A330;
+}
+
+.bg-verde2 {
+  background-color: #48A330;
+}
+
+.advertencia {
+  color: #b9a24a;
+}
+
+.bg-advertencia {
+  background-color: #b9a24a;
+}
+
+.advertencia2 {
+  color: #dbc15e;
+}
+
+.bg-advertencia2 {
+  background-color: #dbc15e;
+}
