@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import type { InfoTabProps } from "@/lib/types/Chat";
 
-const Info: React.FC<InfoTabProps> = ({ selectedChat, platformInfo, formatDate }) => {
-  const [selectAgent, setSelectAgent] = useState<boolean>(false);
+const Info: React.FC<InfoTabProps> = ({ selectedChat }) => {
 
   return (
     <div className="p-4 space-y-6">
@@ -43,80 +42,16 @@ const Info: React.FC<InfoTabProps> = ({ selectedChat, platformInfo, formatDate }
           </div>
         </div>
       </div>
-
-      {/* Platform Information */}
-      <div>
-        <h4 className="text-sm font-semibold text-gray-900 mb-3">Plataforma</h4>
-        <div className="bg-gray-50 rounded-lg p-3">
-          <div className="flex items-center space-x-3">
-            <div
-              className={`w-10 h-10 ${platformInfo.color} rounded-full flex items-center justify-center`}
-            >
-              {React.isValidElement(platformInfo.icon) && (
-                <img
-                  src={(platformInfo.icon.props as any).src}
-                  alt={(platformInfo.icon.props as any).alt}
-                  className="w-6"
-                />
-              )}
-            </div>
-            <div>
-              <p className="text-sm font-medium text-gray-900">
-                {platformInfo.name}
-              </p>
-              <p className="text-xs text-gray-500">
-                Conectado desde {formatDate(selectedChat.joinDate)}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Quick Actions */}
       <div>
         <h4 className="text-sm font-semibold text-gray-900 mb-3">
-          Acciones rápidas
+          Archivos
         </h4>
         <div className="space-y-2">
-          {/* Asignar Agente a la conversación */}
-          <button onClick={() => setSelectAgent(!selectAgent)} className="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
-            <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" > <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /> </svg>
-            </div>
-            <span className="text-sm text-gray-700">Asignar Agente</span>
-          </button>
-          {/* select para asignar agente */}
-          {selectAgent && 
-            <div className="flex justify-center items-center w-full">
-              <div className="w-[90%] p-2 rounded-lg border border-gray-300 space-y-2 max-h-[6rem] overflow-y-auto shadow-md">
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 1</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 2</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 3</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 4</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 5</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 6</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 7</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 8</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 9</p>
-                <p className="inter-13 gris hover:bg-[#0556bf] hover:text-white transition-all duration-300 px-2 py-1 rounded-[10px] cursor-pointer">Agente 10</p>
-              </div>
-            </div>
-          }
-
-          {/* Crear tarea */}
-          <button className="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
-            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" > <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V6a2 2 0 012-2h4a2 2 0 012 2v1m-6 0h6m-6 0l-.5 9a2 2 0 002 2h3a2 2 0 002-2L16 7m-6 0V6a2 2 0 012-2h4a2 2 0 012 2v1" /> </svg>
-            </div>
-            <span className="text-sm text-gray-700">Crear tarea</span>
-          </button>
-
-          {/* Ver perfil completo del cliente */}
-          <button className="w-full flex items-center space-x-3 p-3 text-left hover:bg-gray-50 rounded-lg transition-colors">
-            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" > <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /> </svg>
-            </div>
-            <span className="text-sm text-gray-700">Ver perfil completo</span>
+          {/* Ver archivos adjuntos en el chat */}
+          <button className="cursor-pointer w-full flex items-center space-x-3 px-3 py-2 bg-gray-200 text-gray-900 hover:text-gray-200 hover:bg-gray-700 rounded-md transition-colors duration-300">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+            <span className="text-sm">Ver archivos adjuntos</span>
           </button>
         </div>
       </div>

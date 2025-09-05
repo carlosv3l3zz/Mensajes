@@ -1,12 +1,7 @@
 import React from "react";
-import type { HeaderProps, Chat } from "@/lib/types/Chat";
+import type { HeaderProps } from "@/lib/types/Chat";
 
 const Header: React.FC<HeaderProps> = ({ selectedChat, onToggleInfo }) => {
-  const getPlatformColor = (platform: Chat["platform"]): string => {
-    return platform === "instagram" 
-      ? "bg-gradient-to-r from-purple-500 to-pink-500" 
-      : "bg-blue-500";
-  };
 
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
@@ -28,33 +23,12 @@ const Header: React.FC<HeaderProps> = ({ selectedChat, onToggleInfo }) => {
           <div className="flex items-center space-x-2">
             <span
               className={`inline-block w-2 h-2 rounded-full ${
-                selectedChat.isOnline ? "bg-green-500" : "bg-gray-400"
+                selectedChat.isOnline ? "bg-verde" : "bg-gray-400"
               }`}
             ></span>
             <span className="text-sm text-gray-500">
               {selectedChat.isOnline ? "En línea" : "Desconectado"}
             </span>
-            <div
-              className={`w-4 h-4 ${getPlatformColor(
-                selectedChat.platform
-              )} rounded-full flex items-center justify-center ml-2`}
-            >
-              <span className="text-white text-xs font-bold">
-                {selectedChat.platform === "instagram" ? (
-                  <img
-                    src="/svg/mensajes/instagram.svg"
-                    alt="Instagram"
-                    className="w-3"
-                  />
-                ) : (
-                  <img
-                    src="/svg/mensajes/facebook.svg"
-                    alt="Facebook"
-                    className="w-3.5"
-                  />
-                )}
-              </span>
-            </div>
           </div>
         </div>
       </div>

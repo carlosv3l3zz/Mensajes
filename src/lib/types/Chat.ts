@@ -146,8 +146,6 @@ export interface TabsProps {
 
 export interface InfoTabProps {
   selectedChat: Chat;
-  platformInfo: PlatformInfo;
-  formatDate: (dateString: string) => string;
 }
 
 export interface ActivityTabProps {

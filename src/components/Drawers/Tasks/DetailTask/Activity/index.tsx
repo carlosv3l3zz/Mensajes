@@ -190,7 +190,6 @@ const Activity: React.FC = () => {
             <img src="/svg/detailTasks/arroba.svg" className="cursor-pointer hover:opacity-70 transition-opacity w-6" />
           </button>
 
-
           {/* Botón para enviar un mensaje */}
           <button
             className="bg-azul-principal rounded-[5px] px-4 py-1 hover:opacity-90 transition-opacity poppins-17 blanco !font-medium"

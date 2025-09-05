@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Tabs from "./Tabs";
 import Info from "./Tabs/Info";
-import type { InfoChatProps, PlatformInfo, Chat } from "@/lib/types/Chat";
+import type { InfoChatProps } from "@/lib/types/Chat";
 //import Activity from "./Tabs/Activity";
 
 const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose }) => {
@@ -10,34 +10,6 @@ const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose })
   if (!selectedChat || !isVisible) {
     return null;
   }
-
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("es-ES", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    });
-  };
-
-  const getPlatformInfo = (platform: Chat["platform"]): PlatformInfo => {
-    if (platform === "instagram") {
-      return {
-        name: "Instagram",
-        color: "bg-gradient-to-r from-purple-500 to-pink-500",
-        icon: <img src="/svg/mensajes/instagram.svg" alt="Instagram" className="w-3" />
-      };
-    } else if (platform === "messenger") {
-      return {
-        name: "Facebook",
-        color: "bg-blue-500",
-        icon: <img src="/svg/mensajes/facebook.svg" alt="Facebook" className="w-3.5" />
-      };
-    }
-    return { name: "Desconocido", color: "bg-gray-500", icon: "?" };
-  };
-
-  const platformInfo = getPlatformInfo(selectedChat.platform);
 
   return (
     <div className="flex flex-col h-full bg-white border-l border-gray-200">
@@ -62,7 +34,7 @@ const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose })
               </span>
             </div>
             {selectedChat.isOnline && (
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-4 border-white rounded-full"></div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-verde border-4 border-white rounded-full"></div>
             )}
           </div>
           
@@ -71,17 +43,10 @@ const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose })
           </h2>
           
           <div className="flex items-center space-x-2 mb-2">
-            <span className={`inline-block w-2 h-2 rounded-full ${selectedChat.isOnline ? 'bg-green-500' : 'bg-gray-400'}`}></span>
+            <span className={`inline-block w-2 h-2 rounded-full ${selectedChat.isOnline ? 'bg-verde' : 'bg-gray-400'}`}></span>
             <span className="text-sm text-gray-500">
               {selectedChat.isOnline ? 'En línea' : 'Desconectado'}
             </span>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <div className={`w-5 h-5 ${platformInfo.color} rounded-full flex items-center justify-center`}>
-              <span className="text-white text-xs font-bold">{platformInfo.icon}</span>
-            </div>
-            <span className="text-sm text-gray-600">{platformInfo.name}</span>
           </div>
         </div>
       </div>
@@ -92,7 +57,7 @@ const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose })
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         {activeTab === "info" && (
-          <Info selectedChat={selectedChat} platformInfo={platformInfo} formatDate={formatDate}/>
+          <Info selectedChat={selectedChat} />
         )}
         {activeTab === "activity" && (
           <div>{/* <Activity selectedChat={selectedChat} platformInfo={platformInfo} formatDate={formatDate}/> */}</div>

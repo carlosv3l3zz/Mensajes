@@ -18,7 +18,7 @@ const PreviewAnswer: React.FC<PreviewAnswerProps> = ({ replyTo, setReplyTo }) =>
       );
     } else if (fileType.startsWith('audio/')) {
       return (
-        <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 verde" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
         </svg>
       );
@@ -105,13 +105,13 @@ const PreviewAnswer: React.FC<PreviewAnswerProps> = ({ replyTo, setReplyTo }) =>
     >
       <div
         className={`flex items-start backdrop-blur-sm justify-between bg-gray-500/20 rounded-t-[10px] px-2 py-3 border-l-4 ${
-          replyTo.senderId === "me" ? "border-green-400" : "border-blue-400"
+          replyTo.senderId === "me" ? "border-[#b60000]" : "border-[#ff9800]"
         }`}
       >
         <div className="flex-1">
           <p
             className={`textos-peques font-medium mb-0.5 ${
-              replyTo.senderId === "me" ? "text-green-600" : "text-blue-500"
+              replyTo.senderId === "me" ? "text-[#b60000]" : "text-[#ff9800]"
             }`}
           >
             {replyTo.senderId === "me"

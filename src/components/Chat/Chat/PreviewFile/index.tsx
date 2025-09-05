@@ -8,7 +8,7 @@ const PreviewFile: React.FC<PreviewFileProps> = ({ file, onCancel, onSend, fileC
     if (fileType.startsWith("image/")) {
       return (
         <svg
-          className="w-8 h-8 text-blue-500"
+          className="w-8 h-8 rojo"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -250,7 +250,7 @@ const PreviewFile: React.FC<PreviewFileProps> = ({ file, onCancel, onSend, fileC
           <button
             onClick={onSend}
             disabled={!file}
-            className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+            className="p-2 bg-rojo text-white rounded-full hover:bg-[#880808] disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex-shrink-0"
           >
             <svg
               className="w-5 h-5"

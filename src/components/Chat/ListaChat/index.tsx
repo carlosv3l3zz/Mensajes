@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { chatsData } from "@/Data/messages";
-import type { ListaChatProps, Chat } from "@/lib/types/Chat";
+import type { ListaChatProps } from "@/lib/types/Chat";
 
 const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -23,22 +23,6 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
     );
   }, [searchTerm]);
 
-  const getPlatformIcon = (platform: Chat["platform"]): React.ReactElement | null => {
-    if (platform === "instagram") {
-      return (
-        <div className="w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-          <img src="/svg/mensajes/instagram.svg" alt="Instagram" className="w-3" />
-        </div>
-      );
-    } else if (platform === "messenger") {
-      return (
-        <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-          <img src="/svg/mensajes/facebook.svg" alt="Facebook" className="w-3.5" />
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="flex flex-col h-full bg-white border-r border-gray-200">
@@ -59,7 +43,7 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar conversaciones..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b60000] focus:border-transparent"
           />
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +70,7 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm("")}
-                className="mt-4 text-blue-500 hover:text-blue-600 text-sm font-medium"
+                className="mt-4 rojo hover:text-[#880808] text-sm font-medium"
               >
                 Limpiar búsqueda
               </button>
@@ -98,7 +82,7 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
             key={chat.id}
             onClick={() => onSelectChat(chat)}
             className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors ${
-              selectedChatId === chat.id ? "bg-blue-50 border-l-4 border-l-blue-500" : ""
+              selectedChatId === chat.id ? "bg-red-50 border-l-4 border-l-[#b60000]" : ""
             }`}
           >
             <div className="flex items-start space-x-3">
@@ -111,12 +95,8 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
                 </div>
                 {/* Online indicator */}
                 {chat.isOnline && (
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"/>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-verde border-2 border-white rounded-full"/>
                 )}
-                {/* Platform indicator */}
-                <div className="absolute -top-1 -right-1">
-                  {getPlatformIcon(chat.platform)}
-                </div>
               </div>
 
               {/* Chat Info */}
@@ -135,7 +115,7 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
                     {chat.lastMessage}
                   </p>
                   {chat.unreadCount > 0 && (
-                    <span className="ml-2 bg-blue-500 blanco text-xs rounded-full px-2 py-1 min-w-[20px] text-center">
+                    <span className="ml-2 bg-rojo blanco text-xs rounded-full px-2 py-1 min-w-[20px] text-center">
                       {chat.unreadCount}
                     </span>
                   )}
@@ -157,7 +137,7 @@ const ListaChat: React.FC<ListaChatProps> = ({ selectedChatId, onSelectChat }) =
             }
           </span>
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-verde rounded-full"></div>
             <span>En línea</span>
           </div>
         </div>

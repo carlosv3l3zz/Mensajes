@@ -18,7 +18,9 @@ interface EmojiObject {
 const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
   const [newMessage, setNewMessage] = useState<string>("");
   const [fileComment, setFileComment] = useState<string>("");
-  const [messages, setMessages] = useState<Message[]>(selectedChat?.messages || []);
+  const [messages, setMessages] = useState<Message[]>(
+    selectedChat?.messages || []
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [replyTo, setReplyTo] = useState<Message | null>(null);
   const [fileToSend, setFileToSend] = useState<File | null>(null);
@@ -56,11 +58,15 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
         fileName: replyTo.fileName,
         fileSize: replyTo.fileSize,
         file: replyTo.file,
-        replyTo: { 
-          id: replyTo.id, 
-          senderName: replyTo.senderName || (replyTo.senderId === 'me' ? 'Tú' : replyTo.senderName || 'Contacto'), 
-          message: replyTo.message 
-        }
+        replyTo: {
+          id: replyTo.id,
+          senderName:
+            replyTo.senderName ||
+            (replyTo.senderId === "me"
+              ? "Tú"
+              : replyTo.senderName || "Contacto"),
+          message: replyTo.message,
+        },
       };
 
       setMessages([...messages, message]);
@@ -75,11 +81,17 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
         message: newMessage,
         timestamp: new Date().toISOString(),
         type: "text",
-        replyTo: replyTo ? { 
-          id: replyTo.id, 
-          senderName: replyTo.senderName || (replyTo.senderId === 'me' ? 'Tú' : replyTo.senderName || 'Contacto'), 
-          message: replyTo.message 
-        } : undefined
+        replyTo: replyTo
+          ? {
+              id: replyTo.id,
+              senderName:
+                replyTo.senderName ||
+                (replyTo.senderId === "me"
+                  ? "Tú"
+                  : replyTo.senderName || "Contacto"),
+              message: replyTo.message,
+            }
+          : undefined,
       };
 
       setMessages([...messages, message]);
@@ -100,7 +112,7 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
       setFileToSend(file);
     }
     // Limpiar el input para permitir seleccionar el mismo archivo nuevamente
-    e.target.value = '';
+    e.target.value = "";
   };
 
   const handleSendFile = (): void => {
@@ -114,7 +126,7 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
         type: "file",
         fileName: fileToSend.name,
         fileSize: fileToSend.size,
-        file: fileToSend
+        file: fileToSend,
       };
 
       setMessages([...messages, message]);
@@ -130,9 +142,9 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
 
   const formatTime = (timestamp: string): string => {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString("es-ES", { 
-      hour: "2-digit", 
-      minute: "2-digit" 
+    return date.toLocaleTimeString("es-ES", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -147,9 +159,9 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
     } else if (date.toDateString() === yesterday.toDateString()) {
       return "Ayer";
     } else {
-      return date.toLocaleDateString("es-ES", { 
-        day: "numeric", 
-        month: "short" 
+      return date.toLocaleDateString("es-ES", {
+        day: "numeric",
+        month: "short",
       });
     }
   };
@@ -159,6 +171,12 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
   };
 
   const handleSendAudio = (audioBlob: Blob): void => {
+    console.log("Chat: Received audio blob for message creation:", audioBlob);
+
+    // Obtener la duración del blob si está disponible
+    const audioDuration = (audioBlob as any).duration || 0;
+    console.log("Chat: Audio duration from blob:", audioDuration);
+
     const message: Message = {
       id: messages.length + 1,
       senderId: "me",
@@ -166,16 +184,28 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
       message: "Mensaje de voz",
       timestamp: new Date().toISOString(),
       type: "audio",
-      fileName: `audio_${Date.now()}.wav`,
+      fileName: `audio_${Date.now()}.webm`,
       fileSize: audioBlob.size,
       file: audioBlob,
-      replyTo: replyTo ? { 
-        id: replyTo.id, 
-        senderName: replyTo.senderName || (replyTo.senderId === 'me' ? 'Tú' : replyTo.senderName || 'Contacto'), 
-        message: replyTo.message 
-      } : undefined
+      replyTo: replyTo
+        ? {
+            id: replyTo.id,
+            senderName:
+              replyTo.senderName ||
+              (replyTo.senderId === "me"
+                ? "Tú"
+                : replyTo.senderName || "Contacto"),
+            message: replyTo.message,
+          }
+        : undefined,
     };
 
+    // Agregar la duración como propiedad personalizada del mensaje
+    if (audioDuration > 0) {
+      (message as any).audioDuration = audioDuration;
+    }
+
+    console.log("Chat: Created audio message:", message);
     setMessages([...messages, message]);
     setIsRecording(false);
     setReplyTo(null);
@@ -190,10 +220,27 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
       <div className="flex flex-col items-center justify-center h-full bg-fondo w-full">
         <div className="text-center justify-center flex flex-col items-center">
           <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /> </svg>
+            <svg
+              className="w-12 h-12 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {" "}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />{" "}
+            </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Selecciona una conversación</h3>
-          <p className="text-gray-500">Elige un chat de la lista para comenzar a conversar</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            Selecciona una conversación
+          </h3>
+          <p className="text-gray-500">
+            Elige un chat de la lista para comenzar a conversar
+          </p>
         </div>
       </div>
     );
@@ -202,73 +249,128 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <Header selectedChat={selectedChat} onToggleInfo={onToggleInfo}/>
+      <Header selectedChat={selectedChat} onToggleInfo={onToggleInfo} />
 
       {/* Mensajes */}
-      <Menssages messages={messages} formatDate={formatDate} formatTime={formatTime} messagesEndRef={messagesEndRef as RefObject<HTMLDivElement>} onReply={setReplyTo} />
+      <Menssages
+        messages={messages}
+        formatDate={formatDate}
+        formatTime={formatTime}
+        messagesEndRef={messagesEndRef as RefObject<HTMLDivElement>}
+        onReply={setReplyTo}
+      />
 
-      {/* overlay para cerrar el emoji picker */} 
-      {showEmojiPicker && <div className="fixed inset-0 z-40" onClick={() => setShowEmojiPicker(false)} />}
+      {/* overlay para cerrar el emoji picker */}
+      {showEmojiPicker && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setShowEmojiPicker(false)}
+        />
+      )}
 
-        {/* Preview de respuesta */}
-        {replyTo && (
-          <PreviewAnswer replyTo={replyTo} setReplyTo={setReplyTo} />
-        )}
+      {/* Preview de respuesta */}
+      {replyTo && <PreviewAnswer replyTo={replyTo} setReplyTo={setReplyTo} />}
 
-        {/* Preview de archivo */}
-         {fileToSend && ( <PreviewFile file={fileToSend} onCancel={handleCancelFile} onSend={handleSendFile} fileComment={fileComment} setFileComment={setFileComment} /> )}
+      {/* Preview de archivo */}
+      {fileToSend && (
+        <PreviewFile
+          file={fileToSend}
+          onCancel={handleCancelFile}
+          onSend={handleSendFile}
+          fileComment={fileComment}
+          setFileComment={setFileComment}
+        />
+      )}
 
       {/* Inputs y botones */}
       <div className="p-4 border-t border-gray-200 bg-white">
-        <form onSubmit={handleSendMessage} className="flex items-center space-x-2 relative">
-          
+        <form
+          onSubmit={handleSendMessage}
+          className="flex items-center space-x-2 relative"
+        >
           {isRecording ? (
             <div className="flex items-center w-full justify-end">
-            <AudioRecorder 
-              onSendAudio={handleSendAudio}
-              onCancel={handleCancelRecording}
-            />
+              <AudioRecorder
+                onSendAudio={handleSendAudio}
+                onCancel={handleCancelRecording}
+              />
             </div>
           ) : (
             <>
               {/* Botón de emojis */}
-              <Emojis showEmojiPicker={showEmojiPicker} setShowEmojiPicker={setShowEmojiPicker} handleEmojiPickerReaction={handleEmojiPickerReaction} />
+              <Emojis
+                showEmojiPicker={showEmojiPicker}
+                setShowEmojiPicker={setShowEmojiPicker}
+                handleEmojiPickerReaction={handleEmojiPickerReaction}
+              />
 
               {/* Input de archivo */}
-              <Files fileInputRef={fileInputRef as RefObject<HTMLInputElement>} handleFileUpload={handleFileUpload} />
+              <Files
+                fileInputRef={fileInputRef as RefObject<HTMLInputElement>}
+                handleFileUpload={handleFileUpload}
+              />
 
               {/* Input de mensaje */}
-              <Textarea newMessage={newMessage} setNewMessage={setNewMessage} handleSendMessage={handleSendMessage} />
+              <Textarea
+                newMessage={newMessage}
+                setNewMessage={setNewMessage}
+                handleSendMessage={handleSendMessage}
+              />
             </>
           )}
 
           {/* Botón de enviar */}
-          {newMessage.trim() ? ( 
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.2 }}
-            type="submit"
-            className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-          >
-            <motion.svg
-            initial={{ opacity: 0, rotate: 90 }}
-            animate={{ opacity: 1, rotate: 0 }}
-            exit={{ opacity: 0, rotate: 90 }}
-            transition={{ duration: 0.2 }}
-            className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /> </motion.svg>
-          </motion.button>
+          {newMessage.trim() ? (
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              type="submit"
+              className="p-2 bg-rojo text-white rounded-full hover:bg-[#880808] transition-colors"
+            >
+              <motion.svg
+                initial={{ opacity: 0, rotate: 90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {" "}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                />{" "}
+              </motion.svg>
+            </motion.button>
           ) : (
-          !isRecording && (
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.2 }}
-            className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-            onClick={handleStartRecording}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /> </svg>
-          </motion.button>
+            !isRecording && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="p-2 bg-rojo text-white rounded-full hover:bg-[#880808] transition-colors"
+                onClick={handleStartRecording}
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {" "}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                  />{" "}
+                </svg>
+              </motion.button>
             )
           )}
         </form>

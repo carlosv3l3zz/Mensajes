@@ -11,7 +11,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 body {
   margin: 0px !important;
   background: #fff !important;
@@ -32,184 +31,112 @@ p {
   margin: 0px;
 }
 
-/*SCROLLBAR*/
-
-/* Webkit (Chrome, Edge, Safari) */
-::-webkit-scrollbar {
-  height: 8px; /* horizontal */
-  width: 8px;  /* vertical */
-}
-
-::-webkit-scrollbar-track {
-  background: #ECF2F3;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #9E9E9E;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-/*END::SCROLLBAR*/
-
 /*Fondos*/
 .bg-negro {
-  background: #1E1E1E;
+  background: #000;
 }
 
-.bg-gris-claro {
-  background: #F4F4F4;
-}
-
-.bg-gris-oscuro {
-  background: #999;
-}
-
-.bg-gris-oscuro-3 {
-  background: #707070;
-}
-
-.bg-gris-oscuro-4 {
-  background:#39475C;
-}
-
-.bg-morado {
-  background:#5B66AD;
-}
-
-.bg-morado-oscuro {
-  background: #202975;
-}
-
-.bg-azul-principal {
-  background:#0098D6;
-}
-
-.bg-azul-principal-oscuro {
-  background:#005BB4;
-}
-
-.bg-azul-claro {
-  background:#66C7ED;
+.bg-negro2 {
+  background: #1e1e1e;
 }
 
 .bg-blanco {
-  background: #FFF;
+  background-color: #fff;
 }
 
-.bg-verde-agua {
-  background: #4BBAC5;
+.bg-blanco-suave {
+  background-color: #f5f5f5;
 }
 
-.bg-verde-agua-oscuro {
-  background: #108898;
+.bg-gris {
+  background-color: #292929;
 }
 
-.bg-verde-ganancia {
-  background: #1E8E00;
+.bg-gris-suave {
+  background-color: #333;
 }
 
-.bg-rojo-error {
-  background: #FB0000;
+.bg-rojo {
+  background-color: #b60000;
 }
 
-.bg-rojo-perdida {
-  background: #C54050;
+.bg-rojo2 {
+  background-color: #880808;
 }
 
-.bg-rojo-oscuro {
-  background: #981019;
+.bg-naranja {
+  background-color: #ff9800;
 }
 
-.bg-azul-navy{
-  background: #161930;
+.bg-amarillo {
+  background-color: #ffc107;
+}
+
+.bg-verde {
+  background-color: #00e676;
+}
+
+.bg-morado {
+  background-color: #6f2bcd;
 }
 /*END::Fondos*/
 
 /*Colores*/
-.negro{
-  color: #1E1E1E;
+.negro {
+  color: #000;
 }
 
-.gris-claro {
-  color: #F4F4F4;
-}
-
-.gris-oscuro {
-  color: #999;
-}
-
-.gris-oscuro-3 {
-  color: #707070;
-}
-
-.gris-oscuro-4 {
-  color:#39475C;
+.negro2 {
+  color: #1e1e1e;
 }
 
 .blanco {
-  color: #FFF;
+  color: #fff;
+}
+
+.blanco-suave {
+  color: #f5f5f5;
+}
+
+.gris {
+  color: #292929;
+}
+
+.gris-suave {
+  color: #333;
+}
+
+.rojo {
+  color: #b60000;
+}
+
+.rojo2 {
+  color: #880808;
+}
+
+.naranja {
+  color: #ff9800;
+}
+
+.amarillo {
+  color: #ffc107;
+}
+
+.verde {
+  color: #00e676;
 }
 
 .morado {
-  color:#5B66AD;
+  color: #6f2bcd;
 }
+/*END::Colores*/
 
-.morado-oscuro {
-  color: #202975;
-}
-
-.azul-principal {
-  color:#0098D6;
-}
-
-.azul-principal-oscuro {
-  color:#005BB4;
-}
-
-.azul-claro {
-  color:#66C7ED;
-}
-
-.verde-agua{
-  color: #4BBAC5;
-}
-
-.verde-agua-oscuro {
-  color: #108898;
-}
-
-.verde-ganancia {
-  color: #1E8E00;
-}
-
-.rojo-error{
-  color: #FB0000;
-}
-
-.rojo-perdida {
-  color: #C54050;
-}
-
-.rojo-oscuro {
-  color: #981019;
-}
-
-.azul-navy {
-  color: #161930;
-}
-
-/*END::Colores*/ 
-
-
-/*Textos*/ 
+/*Textos*/
 .poppins-36 {
   font-family: Poppins;
   font-size: 36px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 80%;
 }
 
@@ -217,23 +144,23 @@ p {
   font-family: Poppins;
   font-size: 32px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 100%;
 }
 
-.poppins-26{
+.poppins-26 {
   font-family: Poppins;
   font-size: 26px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 100%;
 }
 
-.poppins-17{
+.poppins-17 {
   font-family: Poppins;
   font-size: 17px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 100%;
 }
 
@@ -257,7 +184,7 @@ p {
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 100%;
 }
 
@@ -273,7 +200,7 @@ p {
   font-family: Poppins;
   font-size: 10px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 100%;
 }
 
@@ -281,6 +208,6 @@ p {
 
 /*ANTD*/
 .ant-drawer-header {
-    display: none !important;
+  display: none !important;
 }
 /*END::ANTD*/

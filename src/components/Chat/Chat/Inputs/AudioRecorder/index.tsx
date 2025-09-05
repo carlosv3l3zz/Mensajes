@@ -37,12 +37,45 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
     };
   }, []);
 
+  // Función utilitaria para manejar el timer de manera segura
+  const startTimer = (): void => {
+    console.log('AudioRecorder: Starting timer...');
+    if (timerRef.current) {
+      console.log('AudioRecorder: Clearing existing timer before starting new one');
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    
+    timerRef.current = setInterval(() => {
+      setRecordingTime((prev) => {
+        const newTime = prev + 1;
+        console.log('AudioRecorder: Timer tick, new time:', newTime);
+        return newTime;
+      });
+    }, 1000);
+    console.log('AudioRecorder: Timer started successfully');
+  };
+
+  const stopTimer = (): void => {
+    console.log('AudioRecorder: Stopping timer...');
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+      console.log('AudioRecorder: Timer stopped successfully');
+    } else {
+      console.log('AudioRecorder: No timer to stop');
+    }
+  };
+
   const startRecording = async (): Promise<void> => {
     try {
+      console.log('AudioRecorder: Starting recording...');
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
 
-      const mediaRecorder = new MediaRecorder(stream);
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'audio/webm;codecs=opus'
+      });
       mediaRecorderRef.current = mediaRecorder;
 
       const chunks: Blob[] = [];
@@ -50,85 +83,167 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
       mediaRecorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
           chunks.push(event.data);
-          // Si está pausado, crear un blob temporal para preview
-          if (isPaused) {
-            const tempBlob = new Blob(chunks, { type: "audio/wav" });
-            setAudioBlob(tempBlob);
-            setAudioUrl(URL.createObjectURL(tempBlob));
-          }
+          console.log('AudioRecorder: Data available, chunk size:', event.data.size);
         }
       };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: "audio/wav" });
+        console.log('AudioRecorder: MediaRecorder stopped, creating final blob...');
+        const blob = new Blob(chunks, { type: "audio/webm;codecs=opus" });
+        console.log('AudioRecorder: Created final blob:', blob);
+        console.log('AudioRecorder: Final blob size:', blob.size);
+        console.log('AudioRecorder: Final blob type:', blob.type);
+        
         setAudioBlob(blob);
-        setAudioUrl(URL.createObjectURL(blob));
-        // Establecer la duración basada en el tiempo de grabación
-        setAudioDuration(recordingTime);
-        console.log('Recording stopped, duration set to:', recordingTime);
+        const url = URL.createObjectURL(blob);
+        setAudioUrl(url);
+        console.log('AudioRecorder: Audio URL created:', url);
+        
+        // Detener completamente el stream
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => {
+            track.stop();
+            console.log('AudioRecorder: Track stopped:', track.kind);
+          });
+          streamRef.current = null;
+        }
       };
 
-      mediaRecorder.start();
+      mediaRecorder.start(100); // Recopilar datos cada 100ms
       setIsRecording(true);
+      setIsPaused(false);
       setRecordingTime(0);
-      startWaveAnimation(); // Iniciar animación de ondas
+      startWaveAnimation();
 
       // Timer para mostrar el tiempo de grabación
-      timerRef.current = setInterval(() => {
-        setRecordingTime((prev) => prev + 1);
-      }, 1000);
+      startTimer();
+      
+      console.log('AudioRecorder: Recording started successfully');
     } catch (error) {
       console.error("Error al acceder al micrófono:", error);
     }
   };
 
   const stopRecording = (): void => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
+    console.log('AudioRecorder: Stopping recording...');
+    if (mediaRecorderRef.current && (isRecording || isPaused)) {
+      // Guardar el tiempo de grabación antes de resetear el estado
+      const finalRecordingTime = recordingTime;
+      
+      // Detener el MediaRecorder
+      if (mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop();
+      }
+      
+      // Limpiar timers
+      stopTimer();
+      
+      // Actualizar estados
       setIsRecording(false);
       setIsPaused(false);
-      stopWaveAnimation(); // Detener animación de ondas
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
-      }
+      stopWaveAnimation();
+      
+      // IMPORTANTE: NO detener el stream aquí, se detendrá en sendAudio() o deleteRecording()
+      // Esto permite que el audio se procese correctamente antes de liberar el stream
+      
+      // Establecer la duración final basada en el tiempo de grabación guardado
+      setAudioDuration(finalRecordingTime);
+      console.log('AudioRecorder: Recording stopped, duration set to:', finalRecordingTime);
     }
   };
 
   const pauseRecording = (): void => {
-    if (mediaRecorderRef.current && isRecording) {
+    console.log('AudioRecorder: Pausing recording...');
+    console.log('AudioRecorder: Current state before pause:', {
+      isRecording,
+      isPaused,
+      mediaRecorderState: mediaRecorderRef.current?.state,
+      timerExists: !!timerRef.current,
+      currentTime: recordingTime
+    });
+    
+    if (mediaRecorderRef.current && isRecording && mediaRecorderRef.current.state === 'recording') {
+      // PRIMERO: Detener el timer ANTES de hacer cualquier otra cosa
+      stopTimer();
+      
+      // SEGUNDO: Pausar el MediaRecorder
       mediaRecorderRef.current.pause();
+      console.log('AudioRecorder: MediaRecorder paused');
+      
+      // TERCERO: Actualizar estados
       setIsPaused(true);
-      stopWaveAnimation(); // Pausar animación de ondas
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-
-      // Crear un blob temporal con lo grabado hasta el momento
+      stopWaveAnimation();
+      
+      // CUARTO: Crear blob temporal
       mediaRecorderRef.current.requestData();
-      // Establecer la duración temporal basada en el tiempo grabado
+      
+      // QUINTO: Establecer duración
       setAudioDuration(recordingTime);
-      console.log('Recording paused, temporary duration set to:', recordingTime);
+      console.log('AudioRecorder: Recording paused completely, final time:', recordingTime);
+    } else {
+      console.log('AudioRecorder: Cannot pause - invalid state');
     }
   };
 
   const resumeRecording = (): void => {
-    if (mediaRecorderRef.current && isPaused) {
+    console.log('AudioRecorder: Resuming recording...');
+    if (mediaRecorderRef.current && isPaused && mediaRecorderRef.current.state === 'paused') {
       mediaRecorderRef.current.resume();
       setIsPaused(false);
-      startWaveAnimation(); // Reanudar animación de ondas
+      startWaveAnimation();
+      
       // Limpiar el preview temporal al reanudar
       setAudioBlob(null);
       setAudioUrl(null);
-      timerRef.current = setInterval(() => {
-        setRecordingTime((prev) => prev + 1);
-      }, 1000);
+      
+      // Reanudar el timer
+      startTimer();
+      
+      console.log('AudioRecorder: Recording resumed');
     }
   };
 
   const deleteRecording = (): void => {
+    console.log('AudioRecorder: Deleting recording and cleaning up...');
+    
+    // Detener MediaRecorder si está activo
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+    }
+    
+    // Limpiar todos los timers
+    stopTimer();
+    if (progressTimerRef.current) {
+      clearInterval(progressTimerRef.current);
+      progressTimerRef.current = null;
+    }
+    if (waveTimerRef.current) {
+      clearInterval(waveTimerRef.current);
+      waveTimerRef.current = null;
+    }
+    
+    // Detener y limpiar el stream (si aún no se ha hecho)
+    if (streamRef.current) {
+      console.log('AudioRecorder: Stopping remaining stream tracks during cleanup...');
+      streamRef.current.getTracks().forEach((track) => {
+        if (track.readyState !== 'ended') {
+          track.stop();
+          console.log('AudioRecorder: Track stopped during cleanup:', track.kind);
+        } else {
+          console.log('AudioRecorder: Track was already stopped:', track.kind);
+        }
+      });
+      streamRef.current = null;
+    } else {
+      console.log('AudioRecorder: No stream to clean up');
+    }
+    
+    // Limpiar URLs de blob para evitar memory leaks
+    if (audioUrl) {
+      URL.revokeObjectURL(audioUrl);
+    }
+    
+    // Resetear todos los estados
     setAudioBlob(null);
     setAudioUrl(null);
     setRecordingTime(0);
@@ -137,25 +252,49 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
     setIsPlaying(false);
     setAudioDuration(0);
     setAudioCurrentTime(0);
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-    if (progressTimerRef.current) {
-      clearInterval(progressTimerRef.current);
-    }
-    if (waveTimerRef.current) {
-      clearInterval(waveTimerRef.current);
-    }
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
-    }
+    
+    console.log('AudioRecorder: Cleanup completed');
     onCancel();
   };
 
   const sendAudio = (): void => {
     if (audioBlob) {
-      onSendAudio(audioBlob);
+      console.log('AudioRecorder: Sending audio blob:', audioBlob);
+      console.log('AudioRecorder: Blob size:', audioBlob.size);
+      console.log('AudioRecorder: Blob type:', audioBlob.type);
+      console.log('AudioRecorder: Audio duration:', audioDuration);
+      
+      // PRIMERO: Detener y limpiar el stream INMEDIATAMENTE
+      console.log('AudioRecorder: Stopping stream before sending...');
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => {
+          track.stop();
+          console.log('AudioRecorder: Track stopped before send:', track.kind);
+        });
+        streamRef.current = null;
+      }
+      
+      // SEGUNDO: Detener MediaRecorder si aún está activo
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop();
+        console.log('AudioRecorder: MediaRecorder stopped before send');
+      }
+      
+      // TERCERO: Crear blob con metadatos
+      const audioWithDuration = new Blob([audioBlob], { 
+        type: audioBlob.type 
+      });
+      
+      // Agregar la duración como propiedad personalizada
+      (audioWithDuration as any).duration = audioDuration;
+      
+      // CUARTO: Enviar el audio
+      onSendAudio(audioWithDuration);
+      
+      // QUINTO: Limpiar el resto
       deleteRecording();
+    } else {
+      console.error('AudioRecorder: No audio blob available to send');
     }
   };
 
@@ -320,7 +459,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
           {waveHeights.map((height, i) => (
             <div
               key={i}
-              className="w-1.5 rounded-full bg-blue-500 transition-all duration-100 ease-out"
+              className="w-1.5 rounded-full bg-rojo transition-all duration-100 ease-out"
               style={{
                 height: `${height}px`,
               }}
@@ -335,7 +474,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
           {/* Botón de reproducir/pausar - Permite escuchar el audio grabado antes de enviarlo */}
           <button
             onClick={isPlaying ? pauseAudio : playAudio}
-            className="p-2 text-blue-500 hover:text-blue-600 transition-colors"
+            className="p-2 text-rojo hover:text-[#880808] transition-colors"
             title={isPlaying ? "Pausar" : "Reproducir"}
           >
             <img
@@ -357,7 +496,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
           <div className="flex-1 mx-2">
             <div className="w-full bg-gray-300 rounded-full h-2">
               <div
-                className="bg-blue-500 h-2 rounded-full transition-all duration-100"
+                className="bg-rojo h-2 rounded-full transition-all duration-100"
                 style={{
                   width:
                     audioDuration > 0
@@ -380,7 +519,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
         {isRecording && !isPaused && (
           <button
             onClick={pauseRecording}
-            className="p-2 text-blue-500 hover:text-blue-600 transition-colors"
+            className="p-2 text-rojo hover:text-[#880808] transition-colors"
             title="Pausar grabación"
           >
             <img
@@ -395,7 +534,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
         {isPaused && (
           <button
             onClick={resumeRecording}
-            className="p-2 text-green-500 hover:text-green-600 transition-colors"
+            className="p-2 transition-colors"
             title="Continuar grabación"
           >
             <img
@@ -410,7 +549,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
         {isRecording && (
           <button
             onClick={stopRecording}
-            className="p-2 text-red-500 hover:text-red-600 transition-colors"
+            className="p-2 transition-colors"
             title="Detener grabación"
           >
             <img
@@ -425,7 +564,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onSendAudio, onCancel }) 
         {audioBlob && (isPaused || !isRecording) && (
           <button
             onClick={sendAudio}
-            className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+            className="p-2 bg-rojo text-white rounded-full hover:bg-[#880808] transition-colors"
             title="Enviar audio"
           >
             <svg

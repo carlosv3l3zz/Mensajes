@@ -31,7 +31,7 @@ const Activity: React.FC<ActivityTabProps> = ({ selectedChat, platformInfo, form
         </h4>
         <div className="space-y-3">
           <div className="flex items-start space-x-3">
-            <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+            <div className="w-2 h-2 bg-verde rounded-full mt-2"></div>
             <div>
               <p className="text-sm text-gray-900">Último mensaje enviado</p>
               <p className="text-xs text-gray-500">
@@ -40,7 +40,7 @@ const Activity: React.FC<ActivityTabProps> = ({ selectedChat, platformInfo, form
             </div>
           </div>
           <div className="flex items-start space-x-3">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+            <div className="w-2 h-2 bg-rojo rounded-full mt-2"></div>
             <div>
               <p className="text-sm text-gray-900">Se unió a la conversación</p>
               <p className="text-xs text-gray-500">

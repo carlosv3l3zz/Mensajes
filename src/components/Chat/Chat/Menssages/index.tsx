@@ -58,7 +58,7 @@ const Menssages: React.FC<MessagesProps> = ({ messages, formatDate, formatTime, 
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                     message.senderId === "me"
-                      ? "bg-blue-500 text-white"
+                      ? "bg-rojo2 text-white"
                       : "bg-gray-100 text-gray-900"
                   }`}
                 >
@@ -120,7 +120,7 @@ const Menssages: React.FC<MessagesProps> = ({ messages, formatDate, formatTime, 
                   <p
                     className={`text-xs ${
                       message.senderId === "me"
-                        ? "text-blue-100"
+                        ? "text-red-100"
                         : "text-gray-500"
                     }`}
                   >

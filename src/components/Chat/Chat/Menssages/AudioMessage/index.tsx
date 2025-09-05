@@ -39,12 +39,19 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
   const playAudio = async (): Promise<void> => {
     if (audioRef.current) {
       try {
+        console.log('AudioMessage: Attempting to play audio, src:', audioRef.current.src);
+        console.log('AudioMessage: Audio readyState:', audioRef.current.readyState);
+        console.log('AudioMessage: Audio duration:', audioRef.current.duration);
+        
         await audioRef.current.play();
         setIsPlaying(true);
         startProgressTimer();
+        console.log('AudioMessage: Audio started playing successfully');
       } catch (error) {
-        console.error('Error playing audio:', error);
+        console.error('AudioMessage: Error playing audio:', error);
       }
+    } else {
+      console.error('AudioMessage: audioRef.current is null');
     }
   };
 
@@ -60,14 +67,25 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
   const handleLoadedMetadata = (): void => {
     if (audioRef.current) {
       const duration = audioRef.current.duration;
+      console.log('AudioMessage: Audio duration loaded:', duration);
       
-      // Si la duración es Infinity (común con MediaRecorder), usar un valor por defecto
+      // Primero intentar usar la duración personalizada del mensaje
+      const customDuration = (message as any).audioDuration;
+      if (customDuration && customDuration > 0) {
+        setAudioDuration(customDuration);
+        console.log('AudioMessage: Using custom duration from message:', customDuration);
+        return;
+      }
+      
+      // Si la duración es Infinity (común con MediaRecorder), usar estimación
       if (duration === Infinity || isNaN(duration)) {
-        // Intentar calcular duración basada en el tamaño del archivo (aproximado)
+        // Intentar calcular duración basada en el tamaño del archivo
         const estimatedDuration = message.fileSize ? Math.max(1, Math.floor(message.fileSize / 16000)) : 30;
         setAudioDuration(estimatedDuration);
+        console.log('AudioMessage: Using estimated duration:', estimatedDuration);
       } else {
         setAudioDuration(duration);
+        console.log('AudioMessage: Using actual duration:', duration);
       }
     }
   };
@@ -86,6 +104,21 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
   };
 
   const audioUrl = message.file ? URL.createObjectURL(message.file) : null;
+  
+  // Debug logging para el audio y establecer duración inicial
+  useEffect(() => {
+    console.log('AudioMessage: Component mounted/updated');
+    console.log('AudioMessage: message.file:', message.file);
+    console.log('AudioMessage: message.fileSize:', message.fileSize);
+    console.log('AudioMessage: audioUrl:', audioUrl);
+    
+    // Establecer duración personalizada si está disponible
+    const customDuration = (message as any).audioDuration;
+    if (customDuration && customDuration > 0) {
+      setAudioDuration(customDuration);
+      console.log('AudioMessage: Set initial custom duration:', customDuration);
+    }
+  }, [message.file, audioUrl, message]);
 
   return (
     <div className="flex items-center space-x-3 min-w-[200px]">
@@ -94,7 +127,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
         onClick={isPlaying ? pauseAudio : playAudio}
         className={`p-2 rounded-full transition-colors ${
           message.senderId === "me"
-            ? "text-white hover:bg-blue-400"
+            ? "text-white hover:bg-[#b60000]"
             : "text-gray-600 hover:bg-gray-200"
         }`}
         title={isPlaying ? "Pausar" : "Reproducir"}
@@ -128,7 +161,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
         }`}>
           <div
             className={`h-1.5 rounded-full transition-all duration-100 ${
-              message.senderId === "me" ? "bg-white" : "bg-blue-500"
+              message.senderId === "me" ? "bg-white" : "bg-rojo"
             }`}
             style={{
               width:
