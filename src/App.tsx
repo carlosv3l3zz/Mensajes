@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 //import type { ReactNode } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import '@ant-design/v5-patch-for-react-19';
-import { disconnectSocket } from '@/settings/socket';
-import useAuth from '@/lib/hooks/useAuth';
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import "@ant-design/v5-patch-for-react-19";
+import { disconnectSocket } from "@/settings/socket";
+import useAuth from "@/lib/hooks/useAuth";
+import { AnimatePresence } from "framer-motion";
+import PrincipalLayout from "@/lib/layouts/PrincipalLayout";
 
-import PrincipalLayout from '@/lib/layouts/PrincipalLayout';
+import Login from "@/pages/Login";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
+import Tasks from "@/pages/Tasks";
+import Chat from "@/pages/Chat";
 
-import Login from '@/pages/Login';
-import ForgotPassword from '@/pages/ForgotPassword';
-import ResetPassword from '@/pages/ResetPassword';
-import Tasks from '@/pages/Tasks';
-import Chat from '@/pages/Chat';
-
-{/*interface ProtectedRouteProps {
+{
+  /*interface ProtectedRouteProps {
   children: ReactNode;
 }
 
@@ -22,7 +23,8 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   if (auth === null) return <Navigate to="/" />;
   return children;
-};*/}
+};*/
+}
 
 function App() {
   const location = useLocation();
@@ -35,42 +37,44 @@ function App() {
       disconnectSocket();
     };
 
-    window.addEventListener('beforeunload', handleDisconnect);
+    window.addEventListener("beforeunload", handleDisconnect);
 
     return () => {
-      window.removeEventListener('beforeunload', handleDisconnect);
+      window.removeEventListener("beforeunload", handleDisconnect);
       handleDisconnect();
     };
   }, [auth, location.pathname]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+    <AnimatePresence>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
-      <Route
-        path="/tareas"
-        element={
+        <Route
+          path="/tareas"
+          element={
             <PrincipalLayout>
               <Tasks />
             </PrincipalLayout>
-        }
-      />  
+          }
+        />
 
-      <Route
-        path="/chat"
-        element={
+        <Route
+          path="/chat"
+          element={
             <PrincipalLayout>
               <Chat />
             </PrincipalLayout>
-        }
-      />  
+          }
+        />
 
-      {/* Ruta no encontrada */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+        {/* Ruta no encontrada */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
-export default App
+export default App;

@@ -15,6 +15,7 @@
 }
 
 .sidebar-hidden a > p, .sidebar-hidden button > p {display: none;}
+.sidebar-hidden .sidebar-link > .noselected-txt, .sidebar-hidden .sidebar-link > .selected-txt {display: none !important;}
 .sidebar-hidden > div > img {width: 90px; }
 
 .sidebar-hidden .logo-nocolapse {display: none;}
@@ -27,11 +28,12 @@
 }
 
 .selected {
-    background: var(--Azul-Navy, #161930);
+    background: var(--Azul-Navy, #880808);
     border-radius: 0px 5px 5px 0px;
     margin-left: -40px;
     padding-left: 40px;
     width: calc(100% + 40px);
+    border-left: 0.5rem solid #000;
 }
 
 .selected-logo {
@@ -58,5 +60,12 @@
 
 .sidebar-link > .selected-img {display: none;}
 .sidebar-link > .noselected-img {display: block;}
+
+.sidebar-link > .selected-txt {display: none;}
+.sidebar-link > .noselected-txt {display: block;}
+
+.sidebar-link:not(.selected):hover > .selected-txt {display: none;}
+.sidebar-link:not(.selected):hover > .noselected-txt {display: block;}
+
 .sidebar-link:not(.selected):hover > .selected-img {display: block;}
 .sidebar-link:not(.selected):hover > .noselected-img {display: none;}

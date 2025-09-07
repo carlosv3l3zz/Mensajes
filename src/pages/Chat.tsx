@@ -26,7 +26,7 @@ export const Chat: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.15 }}
+      transition={{ duration: 0.2 }}
       className="h-full flex flex-col w-full gap-4"
     >
       <div className="flex w-full h-full overflow-hidden">
@@ -49,7 +49,7 @@ export const Chat: React.FC = () => {
 
         {/* zona de información del chat */}
         {showInfo && (
-          <div className="flex flex-col h-full w-[26%]">
+          <div className="flex flex-col h-full w-[26%] bg-negro">
             <InfoChat
               selectedChat={selectedChat}
               isVisible={showInfo}

@@ -217,28 +217,19 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
 
   if (!selectedChat) {
     return (
-      <div className="flex flex-col items-center justify-center h-full bg-fondo w-full">
+      <div className="flex flex-col items-center justify-center h-full bg-negro w-full">
         <div className="text-center justify-center flex flex-col items-center">
-          <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-            <svg
-              className="w-12 h-12 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-              />{" "}
-            </svg>
+          <div className="w-24 h-24 bg-negro border-3 border-[#b60000] rounded-full flex items-center justify-center">
+            <img
+              src="/svg/mensajes/menssage.svg"
+              alt="Mensaje"
+              className="w-12 h-12"
+            />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="poppins-17 font-medium rojo pt-6 pb-2">
             Selecciona una conversación
           </h3>
-          <p className="text-gray-500">
+          <p className="gris-suave poppins-14">
             Elige un chat de la lista para comenzar a conversar
           </p>
         </div>
@@ -247,7 +238,7 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
   }
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-negro">
       {/* Header */}
       <Header selectedChat={selectedChat} onToggleInfo={onToggleInfo} />
 
@@ -283,7 +274,7 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
       )}
 
       {/* Inputs y botones */}
-      <div className="p-4 border-t border-gray-200 bg-white">
+      <div className="p-4 border-t border-white bg-negro">
         <form
           onSubmit={handleSendMessage}
           className="flex items-center space-x-2 relative"

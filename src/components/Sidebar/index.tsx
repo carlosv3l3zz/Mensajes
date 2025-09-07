@@ -17,7 +17,7 @@ export const Sidebar: React.FC = () => {
 
   const getSelectedLink = (path: string): string => {
     const location = window.location.pathname;
-    return location === path ? "selected blanco selected-logo" : "negro";
+    return location === path ? "selected negro selected-logo" : "rojo";
   };
 
   const getSelectedSvg = (path: string): string => {
@@ -64,7 +64,10 @@ export const Sidebar: React.FC = () => {
                 src={`/svg/SidebarIcons/${item.path.replace("/", "")}.svg`}
                 className="selected-img w-4.5"
               />
-              <p className="textos-14-semibold content-siddebar-cel">
+              <p className="textos-14-semibold noselected-txt">
+                {item.label}
+              </p>
+              <p className="textos-14-semibold selected-txt ">
                 {item.label}
               </p>
             </Link>
@@ -76,7 +79,7 @@ export const Sidebar: React.FC = () => {
           onClick={logout}
         >
           <img src="/svg/SidebarIcons/close-session.svg" alt="" />
-          <p className="negro poppins-17">Cerrar Sesion</p>
+          <p className="rojo poppins-17">Cerrar Sesion</p>
         </button>
       </div>
     </div>
