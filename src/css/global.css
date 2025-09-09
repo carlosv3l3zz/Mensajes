@@ -35,6 +35,39 @@ p {
   margin: 0px;
 }
 
+.cargando {
+  position: relative;
+}
+
+.cargando::after {
+  content: "";
+  animation: cargando 1.5s linear infinite;
+}
+
+@keyframes cargando {
+  0% {
+    content: "";
+  }
+  20% {
+    content: ".";
+  }
+  30% {
+    content: "..";
+  }
+  50% {
+    content: "...";
+  }
+  60% {
+    content: "..";
+  }
+  70% {
+    content: ".";
+  }
+  100% {
+    content: "";
+  }
+}
+
 /*Fondos*/
 .bg-negro {
   background: #000;
@@ -136,6 +169,14 @@ p {
 /*END::Colores*/
 
 /*Textos*/
+.poppins-50 {
+  font-family: Poppins;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 80%;
+}
+
 .poppins-36 {
   font-family: Poppins;
   font-size: 36px;
