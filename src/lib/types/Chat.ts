@@ -4,9 +4,10 @@ export interface Message {
   senderName: string;
   message: string;
   timestamp: string;
-  type: "text" | "file" | "audio";
+  type: "text" | "file" | "audio" | "video";
   fileName?: string;
   fileSize?: number;
+  fileUrl?: string; // URL del archivo para mostrar/descargar
   file?: File | Blob;
   replyTo?: {
     id: number;
@@ -30,6 +31,7 @@ export interface Chat {
   joinDate: string;
   totalMessages: number;
   messages: Message[];
+  attachments?: string[]; // URLs de archivos adjuntos del chat
 }
 
 export interface CurrentUser {

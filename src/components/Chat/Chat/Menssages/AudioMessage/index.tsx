@@ -103,7 +103,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const audioUrl = message.file ? URL.createObjectURL(message.file) : null;
+  const audioUrl = message.file ? URL.createObjectURL(message.file) : message.fileUrl;
   
   // Debug logging para el audio y establecer duración inicial
   useEffect(() => {
