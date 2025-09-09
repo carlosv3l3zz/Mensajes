@@ -14,7 +14,7 @@ export const Login: React.FC = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigate("/tareas");
+      navigate("/chat");
     }, 3000);
   };
 
@@ -62,7 +62,7 @@ export const Login: React.FC = () => {
           <button
             disabled={loading}
             type="submit"
-            className={`bg-blanco cursor-pointer rounded-[10px]`}
+            className={`bg-blanco rounded-[10px] disabled:opacity-80 disabled:!cursor-not-allowed`}
           >
             <p
               className={`poppins-16 negro px-4 py-2 ${

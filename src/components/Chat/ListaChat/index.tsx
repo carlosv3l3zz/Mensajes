@@ -150,7 +150,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
           </span>
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 bg-verde rounded-full"></div>
-            <span>En línea</span>
+            <span className="verde">Estas en línea</span>
           </div>
         </div>
       </div>
