@@ -4,7 +4,7 @@ import type { HeaderProps } from "@/lib/types/Chat";
 const Header: React.FC<HeaderProps> = ({ selectedChat, onToggleInfo }) => {
 
   return (
-    <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-negro">
+    <div className="flex items-center justify-between p-4 border-b border-[#29292950] bg-negro">
       <div className="flex items-center space-x-3">
         <div className="relative">
           <div className="w-10 h-10 bg-negro border border-[#b60000] rounded-full flex items-center justify-center overflow-hidden">

@@ -274,7 +274,7 @@ const Chat: React.FC<ChatProps> = ({ selectedChat, onToggleInfo }) => {
       )}
 
       {/* Inputs y botones */}
-      <div className="p-4 border-t border-white bg-negro">
+      <div className="p-4 border-t border-[#29292950] bg-negro">
         <form
           onSubmit={handleSendMessage}
           className="flex items-center space-x-2 relative"

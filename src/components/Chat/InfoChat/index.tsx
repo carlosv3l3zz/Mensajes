@@ -12,9 +12,9 @@ const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose })
   }
 
   return (
-    <div className="flex flex-col h-full bg-negro border-l border-white">
+    <div className="flex flex-col h-full bg-negro border-l border-[#29292950]">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-white">
+      <div className="flex items-center justify-between p-4">
         <h3 className="poppins-17 font-semibold blanco">Información del contacto</h3>
         <button
           onClick={onClose}
@@ -29,7 +29,7 @@ const InfoChat: React.FC<InfoChatProps> = ({ selectedChat, isVisible, onClose })
       </div>
 
       {/* Profile Section */}
-      <div className="p-6 border-b border-white">
+      <div className="p-6">
         <div className="flex flex-col items-center text-center">
           <div className="relative mb-4">
             <div className="w-20 h-20 bg-negro border-2 border-[#b60000] rounded-full flex items-center justify-center overflow-hidden">

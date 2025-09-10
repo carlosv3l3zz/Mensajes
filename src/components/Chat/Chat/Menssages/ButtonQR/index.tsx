@@ -36,8 +36,8 @@ export const ButtonQR: React.FC<ButtonQRProps> = ({
         }
         className={`gap-2 p-1.5 mx-2 flex items-center justify-center rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100 border border-[#292929] ${
           message.senderId === "me"
-            ? "bg-gradient-to-l from-[#b60000] to-[#000000]"
-            : "bg-gradient-to-r from-[#f5f5f5] to-[#000000]"
+            ? "bg-gradient-to-l from-[#b60000] to-[#b6000010]"
+            : "bg-gradient-to-r from-[#f5f5f5] to-[#f5f5f510]"
         }`}
       >
         {message.senderId === "me" ? (

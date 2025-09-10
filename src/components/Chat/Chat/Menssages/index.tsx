@@ -164,8 +164,8 @@ const Menssages: React.FC<MessagesProps> = ({
               <div
                 className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                   message.senderId === "me"
-                    ? "bg-gradient-to-r from-[#b6000090] to-[#b6000010] blanco"
-                    : "bg-gradient-to-l from-[#f5f5f590] to-[#f5f5f510] blanco"
+                    ? "bg-gradient-to-r from-[#b6000090] to-[#b6000020] blanco"
+                    : "bg-gradient-to-l from-[#f5f5f590] to-[#f5f5f520] blanco"
                 }`}
               >
                 {/* Preview de respuesta dentro del mensaje */}

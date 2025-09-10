@@ -27,9 +27,9 @@ const ListaChat: React.FC<ListaChatProps> = ({
   }, [searchTerm]);
 
   return (
-    <div className="flex flex-col h-full bg-negro border-r border-white">
+    <div className="flex flex-col h-full border-r border-[#29292950]">
       {/* Header */}
-      <div className="p-4 border-b border-white">
+      <div className="p-4">
         <h2 className="inter-20 font-semibold blanco">Mensajes</h2>
         <p className="text-sm blanco-suave mt-1">
           {filteredChats.length}{" "}
@@ -39,7 +39,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
       </div>
 
       {/* Search */}
-      <div className="p-4 border-b border-white">
+      <div className="p-4">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <img
@@ -53,7 +53,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar conversaciones..."
-            className="w-full blanco pl-10 pr-4 py-2 border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b60000] focus:border-transparent placeholder:text-[#f5f5f5]"
+            className="w-full blanco pl-10 pr-4 py-2 rounded-lg outline-none ring-2 ring-[#b60000] border-transparent placeholder:text-[#f5f5f5]"
           />
         </div>
       </div>
@@ -89,7 +89,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
             <div
               key={chat.id}
               onClick={() => onSelectChat(chat)}
-              className={`p-4 border-b border-white cursor-pointer group hover:bg-red-50 transition-colors duration-500 ${
+              className={`p-4 cursor-pointer group hover:bg-red-50 transition-colors duration-500 ${
                 selectedChatId === chat.id
                   ? "bg-gradient-to-r from-[#000000] to-[#b6000070] border-l-4 border-l-[#b60000]"
                   : ""
@@ -108,7 +108,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
                   </div>
                   {/* Online indicator */}
                   {chat.isOnline && (
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-verde border-2 border-white rounded-full" />
+                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-verde rounded-full" />
                   )}
                 </div>
 
@@ -141,7 +141,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-white bg-negro">
+      <div className="p-4 border-t border-[#29292950]">
         <div className="flex items-center justify-between poppins-14 gris-suave">
           <span>
             {searchTerm
