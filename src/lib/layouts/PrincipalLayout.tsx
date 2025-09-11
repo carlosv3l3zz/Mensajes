@@ -7,7 +7,7 @@ interface DashboardLayout {
 
 const PrincipalLayout = ({ children }: DashboardLayout) => {
   return (
-    <div className="flex bg-[#1e1e1e] h-screen w-screen">
+    <div className="flex bg-[#000] h-screen w-screen">
       <div className="">
         <Sidebar />
       </div>
