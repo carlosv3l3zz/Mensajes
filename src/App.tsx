@@ -8,7 +8,6 @@ import { AnimatePresence } from "framer-motion";
 import PrincipalLayout from "@/lib/layouts/PrincipalLayout";
 
 import Login from "@/pages/Login";
-import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import Tasks from "@/pages/Tasks";
 import Chat from "@/pages/Chat";
@@ -49,7 +48,6 @@ function App() {
     <AnimatePresence>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route
