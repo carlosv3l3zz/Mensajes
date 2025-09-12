@@ -5,6 +5,7 @@ import "@ant-design/v5-patch-for-react-19";
 import { disconnectSocket } from "@/settings/socket";
 import useAuth from "@/lib/hooks/useAuth";
 import { AnimatePresence } from "framer-motion";
+import { ToastContainer } from 'react-toastify';
 import PrincipalLayout from "@/lib/layouts/PrincipalLayout";
 
 import Login from "@/pages/Login";
@@ -71,6 +72,20 @@ function App() {
         {/* Ruta no encontrada */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      
+      {/* Contenedor de notificaciones de react-toastify */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </AnimatePresence>
   );
 }

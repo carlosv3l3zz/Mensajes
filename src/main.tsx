@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from "react-router-dom";
 import store from '@/settings/store'
+import 'antd/dist/reset.css'
 import '@/css/global.css'
 import axios from 'axios';
 import App from '@/App.tsx'

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { showAlert } from "@/lib/utils/showAlert";
 import InputPassword from '@/components/UI/InputPassword'
 import '@/css/kmeter.css'
+
 interface PasswordConditions {
   lengthValid: boolean;
   numberValid: boolean;
@@ -62,7 +63,6 @@ const Reset = () => {
     }
   };
 
-
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
@@ -101,31 +101,30 @@ const Reset = () => {
 
   const getSVG = (type: "check" | "error") =>
     type === "check" ? (
-      <img src="/svg/icons/good.svg" alt="" />
+      <img src="/svg/login/good.svg" alt="" />
     ) : (
-      <img src="/svg/icons/error.svg" alt="" />
+      <img src="/svg/login/error.svg" alt="" />
     );
 
-  const getSVGinput = (type: "check" | "error") => type === "check" ? "/svg/icons/padlock-blue.svg" : "/svg/icons/padlock-red.svg";
+  const getSVGinput = (type: "check" | "error") => type === "check" ? "/svg/login/padlock-green.svg" : "/svg/login/padlock-red.svg";
 
   const getColor = (): string => {
-    if (activeCount === 3) return "bg-verde1 verde1";
-    if (activeCount === 2) return "bg-advertencia2 advertencia2";
-    if (activeCount === 1) return "bg-advertencia advertencia";
-    return "bg-salmon salmon";
+    if (activeCount === 3) return "bg-verde verde";
+    if (activeCount === 2) return "bg-amarillo amarillo";
+    if (activeCount === 1) return "bg-amarillo amarillo";
+    return "bg-rojo rojo";
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[url(/images/ResetPassword/background.png)] bg-cover bg-center">
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div className="w-full h-full bg-[url('/images/login/background.png')] bg-cover bg-center absolute -z-10 blur-[10px]" />
       <div className="w-full h-full flex flex-col justify-center items-center relative gap-[40px]">
 
-        <img src="/images/ResetPassword/togrowBlanco.gif" className="w-[349px]" />
-
-        <div className="w-[90%] h-[90%] max-w-[619px] max-h-[600px] bg-blanco rounded-[35px] px-[70px] py-[20px] flex flex-col justify-center items-center gap-[40px]">
+        <div className="w-[90%] h-[90%] max-w-[619px] max-h-[600px] border border-[#fff] shadow-lg bg-[#000000de] rounded-[35px] px-[70px] py-[20px] flex flex-col justify-center items-center gap-[40px]">
           
           <div className="flex flex-col justify-center items-start gap-[10px] w-full pt-[45px]">
-            <p className="poppins-32">Restablecer Contraseña</p>
-            <p className="poppins-16">Ingresa tu correo electrónico y recibirás un enlace para recuperar el acceso a la plataforma </p>
+            <p className="poppins-32 blanco">Restablecer Contraseña</p>
+            <p className="poppins-16 blanco">Ingresa tu nueva contraseña</p>
           </div>
 
           <div className="w-full h-[90%] flex flex-col justify-center items-start gap-[20px]">
@@ -145,13 +144,13 @@ const Reset = () => {
               </div>
 
               <div>
-                <p className={`p-reset textos-peques salmon ${conditions.lengthValid ? "valid" : "invalid"}`}>
+                <p className={`p-reset textos-peques rojo flex gap-2 ${conditions.lengthValid ? "valid" : "invalid"}`}>
                   {getSVG(conditions.lengthValid ? "check" : "error")} 8 caracteres
                 </p>
-                <p className={`p-reset textos-peques salmon ${conditions.numberValid ? "valid" : "invalid"}`}>
+                <p className={`p-reset textos-peques rojo flex gap-2 ${conditions.numberValid ? "valid" : "invalid"}`}>
                   {getSVG(conditions.numberValid ? "check" : "error")} Debe contener al menos un número
                 </p>
-                <p className={`p-reset textos-peques salmon ${conditions.specialValid ? "valid" : "invalid"}`}>
+                <p className={`p-reset textos-peques salmon flex gap-2 ${conditions.specialValid ? "valid" : "invalid"}`}>
                   {getSVG(conditions.specialValid ? "check" : "error")} Debe contener al menos un caracter especial
                 </p>
               </div>
@@ -159,23 +158,23 @@ const Reset = () => {
                 <InputPassword placeholder='Password' value={password2} className='w-full' onChange={handlePasswordChange2} icon={conditions.coincide ? getSVGinput("check") : getSVGinput("error")} label='Confirmar contraseña'/>
 
               <div>
-                <p className={`p-reset textos-peques ${conditions.coincide ? "valid" : "invalid"}`}>
+                <p className={`p-reset textos-peques flex gap-2 ${conditions.coincide ? "valid" : "invalid"}`}>
                   {getSVG(conditions.coincide ? "check" : "error")} La contraseña coincide
                 </p>
               </div>
 
-              <div className="flex items-center justify-start gap-[50px] w-full">
+              <div className="flex items-center justify-between w-full py-4">
                 <button
                   disabled={loading}
-                  className={`w-[50%] py-[20px] px-[20px] bg-verde-agua blanco poppins-16 ${loading ? "cargando" : ""}`}
+                  className={`p-2 bg-rojo border-2 border-[#000] hover:!border-[#b60000] poppins-16 hover:!bg-[#000] hover:!text-[#b60000] rounded-[5px] transition-all duration-500 ${loading ? "cargando" : ""}`}
                 >
-                  {loading ? "Procesando" : "Recuperar contraseña"}
+                  {loading ? "Procesando" : "Restablecer contraseña"}
                 </button>
                 <Link
                   to="/"
-                  className="w-[50%] negro poppins-16 flex items-center gap-[10px]"
+                  className="negro poppins-16 flex items-center bg-rojo2 p-2 hover:!bg-[#b60000] hover:!text-white rounded-[5px] transition-all duration-300"
                 >
-                    <img src="/svg/icons/user.svg" alt="" />
+                  <img src="/svg/icons/user.svg" alt="" />
                   Iniciar Sesión
                 </Link>
               </div>

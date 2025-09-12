@@ -1,0 +1,163 @@
+/* Importar estilos base de react-toastify */
+@import 'react-toastify/dist/ReactToastify.css';
+
+/* Estilos personalizados para las notificaciones con react-toastify */
+
+/* Contenedor principal del toast */
+.Toastify__toast {
+  background: #000 !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  font-family: 'Poppins', sans-serif !important;
+  min-height: 64px !important;
+  padding: 16px !important;
+}
+
+/* Contenido personalizado del toast */
+.toast-content {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 2.8%;
+}
+
+.toast-icon-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.toast-icon {
+  font-size: 18px !important;
+}
+
+.toast-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toast-message {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.toast-description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Estilos específicos por tipo de notificación */
+
+/* Success (Verde) */
+.toast-success {
+  border-left: 4px solid #00e676 !important;
+}
+
+.toast-success .toast-icon {
+  color: #00e676 !important;
+}
+
+.toast-progress-success {
+  background: #00e676 !important;
+}
+
+/* Error (Rojo) */
+.toast-error {
+  border-left: 4px solid #b60000 !important;
+}
+
+.toast-error .toast-icon {
+  color: #b60000 !important;
+}
+
+.toast-progress-error {
+  background: #b60000 !important;
+}
+
+/* Warning (Amarillo) */
+.toast-warning {
+  border-left: 4px solid #ffc107 !important;
+}
+
+.toast-warning .toast-icon {
+  color: #ffc107 !important;
+}
+
+.toast-progress-warning {
+  background: #ffc107 !important;
+}
+
+/* Info (Gris) */
+.toast-info {
+  border-left: 4px solid #4D4D4D !important;
+}
+
+.toast-info .toast-icon {
+  color: #fff !important;
+}
+
+.toast-progress-info {
+  background: #4D4D4D !important;
+}
+
+/* Personalizar la barra de progreso */
+.Toastify__progress-bar {
+  height: 3px !important;
+}
+
+.Toastify__progress-bar--success {
+  background: #00e676 !important;
+}
+
+.Toastify__progress-bar--error {
+  background: #b60000 !important;
+}
+
+.Toastify__progress-bar--warning {
+  background: #ffc107 !important;
+}
+
+.Toastify__progress-bar--info {
+  background: #4D4D4D !important;
+}
+
+/* Botón de cerrar */
+.Toastify__close-button {
+  color: #fff !important;
+  opacity: 0.7;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+/* Contenedor de toasts */
+.Toastify__toast-container {
+  width: 320px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .Toastify__toast-container {
+    width: 100vw !important;
+    padding: 0 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+  
+  .Toastify__toast {
+    margin-bottom: 8px !important;
+    border-radius: 8px !important;
+  }
+}
