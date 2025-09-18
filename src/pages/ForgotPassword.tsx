@@ -129,7 +129,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
             e.preventDefault();
             onBackToLogin();
           }}
-          className="mt-4 text-sm text-[#880808] hover:text-[#b60000] hover:underline transition-all duration-300"
+          className="!mt-4 text-sm rojo2 hover:!text-[#b60000] hover:underline transition-all duration-300"
         >
           ← Volver al login
         </motion.button>

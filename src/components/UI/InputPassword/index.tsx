@@ -10,7 +10,7 @@ interface CheckboxProps {
   color?: string;
 }
 
-const InputPassword: React.FC<CheckboxProps> = ({ className = '', label = '', icon = '', placeholder = '', value='', onChange, color= 'fff' }) => {
+const InputPassword: React.FC<CheckboxProps> = ({ className = '', label = '', icon = '', placeholder = '', value='', onChange, color= 'blanco' }) => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 

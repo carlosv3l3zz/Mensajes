@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { showAlert } from "@/lib/utils/showAlert";
 import InputPassword from '@/components/UI/InputPassword'
 import '@/css/kmeter.css'
+import { motion } from "framer-motion";
 
 interface PasswordConditions {
   lengthValid: boolean;
@@ -116,7 +117,12 @@ const Reset = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.4 }}
+     className="w-screen h-screen flex justify-center items-center">
       <div className="w-full h-full bg-[url('/images/login/background.png')] bg-cover bg-center absolute -z-10 blur-[10px]" />
       <div className="w-full h-full flex flex-col justify-center items-center relative gap-[40px]">
 
@@ -182,7 +188,7 @@ const Reset = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

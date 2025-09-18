@@ -93,7 +93,12 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center ">
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.4 }}
+     className="w-screen h-screen flex justify-center items-center ">
       {/* imagen de fondo */}
       <div className="w-full h-full bg-[url('/images/login/background.png')] bg-cover bg-center absolute -z-10 blur-[10px]" />
 
@@ -165,7 +170,7 @@ export const Login: React.FC = () => {
           )}
         </AnimatePresence>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,13 +1,14 @@
 import React, { useState, useMemo } from "react";
 import { chatsData } from "@/Data/messages";
 import type { ListaChatProps } from "@/lib/types/Chat";
+import AudioMessage from "../Chat/Menssages/AudioMessage"
+import { motion } from "framer-motion"
 
 const ListaChat: React.FC<ListaChatProps> = ({
   selectedChatId,
   onSelectChat,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-
   const formatTime = (timeString: string): string => {
     if (timeString.includes("AM") || timeString.includes("PM")) {
       return timeString;
@@ -27,7 +28,7 @@ const ListaChat: React.FC<ListaChatProps> = ({
   }, [searchTerm]);
 
   return (
-    <div className="flex flex-col h-full border-r border-[#29292950]">
+    <div className="flex flex-col h-full border-r border-[#29292950] relative">
       {/* Header */}
       <div className="p-4">
         <h2 className="inter-20 font-semibold blanco">Mensajes</h2>
@@ -139,6 +140,22 @@ const ListaChat: React.FC<ListaChatProps> = ({
           ))
         )}
       </div>
+      {/* Audio Message solo cuando se estaba escuchando un audio y se cierra el chat*/}
+      {selectedChatId !== chatsData[4].id && chatsData[4].messages[9] &&
+        <motion.div 
+        initial={{ opacity: 0, y: 10, scale: 0.9 }} 
+        animate={{ opacity: 1, y: 0, scale: 1 }} 
+        exit={{ opacity: 0, y: 10, scale: 0.9 }} 
+        transition={{ duration: 0.4 }} 
+        className="p-4 rounded-lg absolute border-2 border-[#880808] bottom-[6%] left-4 right-4 z-10">
+          <div className="flex items-center justify-between pb-3">
+            <p className="poppins-14 blanco">{chatsData[4].messages[9].senderName}</p>
+            <p className="poppins-14 blanco hover:!text-[#000] cursor-pointer rounded-full hover:bg-[#880808] px-1 py-0.5 transition-all duration-400">x</p>
+          </div>
+          <AudioMessage message={chatsData[4].messages[9]} />
+          <div className="bg-[#88080815] border-[2px] border-[#880808] blur-xs p-4 rounded-lg absolute bottom-[6%] left-1 right-1 top-1 -z-1"/>
+        </motion.div>
+      }
 
       {/* Footer */}
       <div className="p-4 border-t border-[#29292950]">

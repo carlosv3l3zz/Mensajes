@@ -9,12 +9,12 @@ const SectionEmojins: React.FC<SectionEmojinsProps> = ({
 }) => {
 
   return (
-    <div className="p-2">
+    <div className="p-2 !w-full">
       <div className="flex items-center space-x-2">
         {/* Reacciones rápidas */}
         <button
           onClick={() => handleQuickReaction("👍")}
-          className={`text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
+          className={`!text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
             currentReaction === "👍" ? "bg-gray-700/50 scale-110" : ""
           }`}
         >
@@ -22,7 +22,7 @@ const SectionEmojins: React.FC<SectionEmojinsProps> = ({
         </button>
         <button
           onClick={() => handleQuickReaction("❤️")}
-          className={`text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
+          className={`!text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
             currentReaction === "❤️" ? "bg-gray-700/50 scale-110" : ""
           }`}
         >
@@ -30,7 +30,7 @@ const SectionEmojins: React.FC<SectionEmojinsProps> = ({
         </button>
         <button
           onClick={() => handleQuickReaction("😀")}
-          className={`text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
+          className={`!text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
             currentReaction === "😀" ? "bg-gray-700/50 scale-110" : ""
           }`}
         >
@@ -38,7 +38,7 @@ const SectionEmojins: React.FC<SectionEmojinsProps> = ({
         </button>
         <button
           onClick={() => handleQuickReaction("😢")}
-          className={`text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
+          className={`!text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
             currentReaction === "😢" ? "bg-gray-700/50 scale-110" : ""
           }`}
         >
@@ -46,7 +46,7 @@ const SectionEmojins: React.FC<SectionEmojinsProps> = ({
         </button>
         <button
           onClick={() => handleQuickReaction("🙏")}
-          className={`text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
+          className={`!text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 ${
             currentReaction === "🙏" ? "bg-gray-700/50 scale-110" : ""
           }`}
         >
@@ -58,17 +58,17 @@ const SectionEmojins: React.FC<SectionEmojinsProps> = ({
         !["👍", "❤️", "😀", "😢", "🙏"].includes(currentReaction) ? (
           <button
             onClick={() => handleQuickReaction(currentReaction)}
-            className={`text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 bg-gray-700/50 scale-110`}
+            className={`!text-2xl hover:scale-110 transition-transform p-1 rounded-full hover:bg-gray-700/50 bg-gray-700/50 scale-110`}
           >
             {currentReaction}
           </button>
         ) : (
           <button
             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-            className="w-8 h-8 flex items-center justify-center blanco hover:bg-gray-700 rounded-full transition-colors"
+            className="p-2 flex items-center justify-center blanco hover:bg-gray-700 rounded-full transition-colors"
           >
             <svg
-              className="w-4 h-4"
+              className="w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

@@ -16,6 +16,7 @@ const Menssages: React.FC<MessagesProps> = ({
   const [quickReplyMessageId, setQuickReplyMessageId] = useState<number | null>(
     null
   );
+  
   const [messageReactions, setMessageReactions] = useState<
     Record<number, string>
   >({});

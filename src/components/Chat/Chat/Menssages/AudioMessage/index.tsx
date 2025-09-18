@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import type { AudioMessageProps } from "@/lib/types/Chat";
 
 const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [audioDuration, setAudioDuration] = useState<number>(0);
   const [audioCurrentTime, setAudioCurrentTime] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     return () => {
@@ -121,7 +121,7 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
   }, [message.file, audioUrl, message]);
 
   return (
-    <div className="flex items-center space-x-3 min-w-[200px]">
+    <div className="flex items-center !space-x-3 min-w-[200px]">
       {/* Botón de reproducir/pausar */}
       <button
         onClick={isPlaying ? pauseAudio : playAudio}
@@ -157,11 +157,11 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
       {/* Barra de progreso y tiempo */}
       <div className="flex-1">
         <div className={`w-full rounded-full h-1.5 ${
-          message.senderId === "me" ? "bg-blue-400" : "bg-gray-300"
+          message.senderId === "me" ? "bg-rojo" : "bg-gray-300"
         }`}>
           <div
             className={`h-1.5 rounded-full transition-all duration-100 ${
-              message.senderId === "me" ? "bg-white" : "bg-rojo"
+              message.senderId === "me" ? "bg-gradient-to-r from-[#880808] to-[#000000]" : "bg-rojo"
             }`}
             style={{
               width:
@@ -175,12 +175,12 @@ const AudioMessage: React.FC<AudioMessageProps> = ({ message }) => {
         {/* Tiempo actual y duración */}
         <div className="flex justify-between text-xs mt-1">
           <span className={`${
-            message.senderId === "me" ? "text-blue-100" : "text-gray-500"
+            message.senderId === "me" ? "text-red-100" : "text-gray-500"
           }`}>
             {formatTime(audioCurrentTime)}
           </span>
           <span className={`${
-            message.senderId === "me" ? "text-blue-100" : "text-gray-500"
+            message.senderId === "me" ? "text-red-100" : "text-gray-500"
           }`}>
             {formatTime(audioDuration)}
           </span>
